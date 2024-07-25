@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public int HP = 100;
+
     public float moveSpeed = 5f;
     private Rigidbody2D rb;
     private Vector2 movement;

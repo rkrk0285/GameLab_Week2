@@ -20,7 +20,7 @@ public class Room
     public Vector2Int UpRight;
     public Vector2Int DownLeft;
 }
-public class MapCreater : MonoBehaviour
+public class MapGenerator : MonoBehaviour
 {
     [SerializeField]
     private int sperateCount;
@@ -46,7 +46,7 @@ public class MapCreater : MonoBehaviour
     {
         SeperateRoom();
         ApplyRoomToTilemap();
-        ConnectRoom();
+        GenerateRoad();
         AddShadowCastToWallMap();
     }
     void SeperateRoom()
@@ -109,7 +109,7 @@ public class MapCreater : MonoBehaviour
         }
     }
     
-    void ConnectRoom()
+    void GenerateRoad()
     {
         int roomCount = rooms.Count;
         for (int i = 0; i < roomCount; i++)
@@ -210,12 +210,5 @@ public class MapCreater : MonoBehaviour
                 shadowCaster.GetComponent<ShadowCaster2D>().useRendererSilhouette = true;
             }
         }
-    }
-
-    public void OnClickGenerateMap()
-    {
-        SeperateRoom();
-        ApplyRoomToTilemap();
-        ConnectRoom();        
     }
 }
