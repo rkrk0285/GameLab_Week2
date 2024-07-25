@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class NoEyeDog : Enemy
 {
     public float rushSpeed;
     public float rushCooldown;
-
+    
     private float rushTimer;
     private bool isRushing = false;
 
@@ -25,7 +26,7 @@ public class NoEyeDog : Enemy
         Flip();
         if (state == State.Idle)
         {
-            return;
+            Idle();
         }
         else if (state == State.Chase)
         {
@@ -37,9 +38,20 @@ public class NoEyeDog : Enemy
         }
     }
 
-    void StateCheck()
+    void Idle()
     {
+        this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
+    void StateCheck()
+    {        
         float distance = Vector3.Distance(transform.position, Player.transform.position);
+
+        if (WallCheck(distance))
+        {
+            MoveBFS();
+        }
+
+
         if (distance < attackDistance)
         {
             state = State.Attack;
@@ -57,6 +69,7 @@ public class NoEyeDog : Enemy
 
     void Chase()
     {
+        this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed);
     }
 
@@ -70,8 +83,7 @@ public class NoEyeDog : Enemy
         }
         else
         {
-            rushTimer -= Time.fixedDeltaTime;
-            Debug.Log(rushTimer);
+            rushTimer -= Time.fixedDeltaTime;            
             Chase();
         }
     }
@@ -80,13 +92,15 @@ public class NoEyeDog : Enemy
     {
         yield return null;
         Vector3 target = Player.transform.position;
+        float timer = 0f;
         while(true)
         {            
             yield return new WaitForFixedUpdate();
-            transform.position = Vector2.MoveTowards(transform.position, target, rushSpeed);
+            timer += Time.fixedDeltaTime;
 
+            transform.position = Vector2.MoveTowards(transform.position, target, rushSpeed);
             float distance = Vector3.Distance(transform.position, target);
-            if (distance < 0.01f)
+            if (distance < 0.01f || timer > 5f)
                 break;
         }
         isRushing = false;
@@ -98,5 +112,20 @@ public class NoEyeDog : Enemy
         float offset = transform.position.x - Player.transform.position.x;
         if ((offset < 0f && transform.localScale.x > 0f) || (offset > 0f && transform.localScale.x < 0f))
             transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-1, 1, 1));
+    }
+
+    bool WallCheck(float distance)
+    {                
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Player.transform.position - transform.position, distance, WallLayer);
+
+        if (hit.collider != null)
+            return false;
+        else
+            return true;
+    }
+
+    void MoveBFS()
+    {
+
     }
 }

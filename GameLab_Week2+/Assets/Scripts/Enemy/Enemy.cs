@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     public float detectDistance;
     public float detectAngle;
 
+    public LayerMask WallLayer;
+
     protected GameObject Player;
 
     private void Start()
