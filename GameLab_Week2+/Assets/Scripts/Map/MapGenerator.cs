@@ -20,12 +20,11 @@ public class Room
     public Vector2Int UpRight;
     public Vector2Int DownLeft;
 }
+
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField]
-    private int sperateCount;
-    [SerializeField]
-    private Tilemap FieldMap;
+    private int sperateCount;    
     [SerializeField]
     private Tilemap WallMap;
     [SerializeField]
@@ -40,14 +39,14 @@ public class MapGenerator : MonoBehaviour
     private const int maxY = 60;
     private const int minY = -60;
 
-    List<Room> rooms = new List<Room>();
+    List<Room> rooms = new List<Room>();    
 
     private void Start()
     {
         SeperateRoom();
         ApplyRoomToTilemap();
         GenerateRoad();
-        AddShadowCastToWallMap();
+        AddShadowCastToWallMap();        
     }
     void SeperateRoom()
     {
@@ -90,8 +89,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     void ApplyRoomToTilemap()
-    {
-        FieldMap.ClearAllTiles();
+    {        
         WallMap.ClearAllTiles();
         int roomCount = rooms.Count;
         for (int i = 0; i < roomCount; i++)
@@ -100,8 +98,7 @@ public class MapGenerator : MonoBehaviour
             for(int x = room.DownLeft.x; x <= room.UpRight.x; x++)
             {
                 for(int y = room.DownLeft.y; y <= room.UpRight.y; y++)
-                {
-                    FieldMap.SetTile(new Vector3Int(x, y), GroundTile);
+                {                    
                     if (x == room.DownLeft.x || x == room.UpRight.x || y == room.DownLeft.y || y == room.UpRight.y)                    
                         WallMap.SetTile(new Vector3Int(x, y), WallTile);                                            
                 }
@@ -210,5 +207,5 @@ public class MapGenerator : MonoBehaviour
                 shadowCaster.GetComponent<ShadowCaster2D>().useRendererSilhouette = true;
             }
         }
-    }
+    }            
 }

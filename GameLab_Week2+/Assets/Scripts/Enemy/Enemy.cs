@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Tilemaps;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,9 +19,7 @@ public class Enemy : MonoBehaviour
     public LayerMask WallLayer;
 
     protected GameObject Player;
+    public Tilemap WallMap;
+    public Tile WallTile;
 
-    private void Start()
-    {
-        Player = GameObject.FindWithTag("Player");
-    }
 }

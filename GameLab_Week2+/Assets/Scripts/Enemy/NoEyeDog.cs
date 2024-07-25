@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -10,14 +11,19 @@ public class NoEyeDog : Enemy
     
     private float rushTimer;
     private bool isRushing = false;
-
+    
+    private void Start()
+    {
+        Player = GameObject.FindWithTag("Player");
+        isRushing = false;        
+    }
     enum State
     {
         Idle,
         Chase,        
         Attack
     }
-
+    
     State state = State.Idle;    
 
     private void FixedUpdate()
@@ -44,20 +50,14 @@ public class NoEyeDog : Enemy
     }
     void StateCheck()
     {        
-        float distance = Vector3.Distance(transform.position, Player.transform.position);
-
-        if (WallCheck(distance))
-        {
-            MoveBFS();
-        }
-
+        float distance = Vector3.Distance(transform.position, Player.transform.position);        
 
         if (distance < attackDistance)
         {
             state = State.Attack;
         }
         else if (distance < detectDistance)
-        {
+        {            
             state = State.Chase;
         }
         else
@@ -122,10 +122,5 @@ public class NoEyeDog : Enemy
             return false;
         else
             return true;
-    }
-
-    void MoveBFS()
-    {
-
-    }
+    }    
 }
