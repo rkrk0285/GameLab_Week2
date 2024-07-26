@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isDead;
     public GameObject JumpScareCanvas;
-
+    public GameObject HitCanvas;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,15 +50,19 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage, GameObject obj)
     {
-        if (DamageTimer <= 0)
+        if (HP > 0)
         {
-            DamageTimer = DamageDelay;
-            HP -= damage;
+            if (DamageTimer <= 0)
+            {
+                DamageTimer = DamageDelay;
+                HP -= damage;
+                StartCoroutine(RedScreen());
+            }
         }
-
-        if (HP <= 0)
+        else
         {
-            Dead(obj);
+            if (!isDead)            
+                Dead(obj);             
         }
     }
 
@@ -70,5 +74,25 @@ public class PlayerController : MonoBehaviour
         {
             JumpScareCanvas.transform.GetChild(0).gameObject.SetActive(true);
         }
+        else if (obj.CompareTag("NoEyeDog"))
+        {
+            JumpScareCanvas.transform.GetChild(1).gameObject.SetActive(true);
+        }
+    }
+
+    IEnumerator RedScreen()
+    {        
+        float timer = 0;
+        HitCanvas.SetActive(true);
+        while(true)
+        {
+            yield return new WaitForFixedUpdate();
+            timer += Time.fixedDeltaTime;
+
+            if (timer >= 0.15f)            
+                break;            
+        }
+        HitCanvas.SetActive(false);
+        StopCoroutine(RedScreen());
     }
 }

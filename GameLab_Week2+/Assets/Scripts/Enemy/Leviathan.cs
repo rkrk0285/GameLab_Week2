@@ -19,7 +19,7 @@ public class Leviathan : Enemy
     void Chase()
     {
         this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        float distance = Vector3.Distance(transform.position, Player.transform.position);        
+        float distance = Vector3.Distance(transform.position, Player.transform.position);
         transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed);
     }
 

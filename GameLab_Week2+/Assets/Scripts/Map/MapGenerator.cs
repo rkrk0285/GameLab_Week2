@@ -36,24 +36,44 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private int sperateCount;
 
+    [Header("오브젝트")]
     [SerializeField]
     private GameObject[] Treasures;
     [SerializeField]
+    private GameObject Core;
+    [SerializeField]
     private int countPerTreasure;
+    [SerializeField]
+    private GameObject[] Monster;    
+    [SerializeField]
+    private int[] countPerMonster;
+
+    [Header("생성 위치")]
+    [SerializeField]
+    private GameObject TreasureParent;
+    [SerializeField]
+    private GameObject MonsterParent;
 
     private const int maxX = 96;
     private const int minX = -96;    
     private const int maxY = 60;
     private const int minY = -60;
 
-    List<Room> rooms = new List<Room>();    
+    private int[] dx = new int[4] { 0, 0, -1, 1 };
+    private int[] dy = new int[4] { 1, -1, 0, 0 };
+
+    List<Room> rooms = new List<Room>();
+    HashSet<Vector3Int> hs = new HashSet<Vector3Int>();
 
     private void Start()
     {
         SeperateRoom();
         ApplyRoomToTilemap();
         GenerateRoad();
-        AddShadowCastToWallMap();        
+        GenerateExit();
+        AddShadowCastToWallMap();
+        GenerateTreasure(countPerTreasure);
+        GenerateMonster();
     }
     void SeperateRoom()
     {
@@ -194,15 +214,109 @@ public class MapGenerator : MonoBehaviour
 
     void GenerateTreasure(int count)
     {
-        for(int i = 0; i < Treasures.Length; i++)
+        Vector3Int pos = new Vector3Int(0, 0);
+        for (int i = 0; i < Treasures.Length; i++)
         {
             for(int j = 0; j < count; j++)
-            {
+            {                                
+                pos = GetPossibleSpawnPostion();
+                Instantiate(Treasures[i], pos, Quaternion.identity, TreasureParent.transform);
+                hs.Add(pos);
+            }
+        }
 
+        pos = GetPossibleSpawnPostion();
+        Instantiate(Core, pos, Quaternion.identity, TreasureParent.transform);
+        hs.Add(pos);
+    }
+
+    void GenerateExit()
+    {
+        int direction = Random.Range(0, 4);
+
+        if (direction == 0)
+        {
+            for(int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].UpRight.y == maxY)
+                {
+                    int center = (rooms[i].DownLeft.x + rooms[i].UpRight.x) / 2;
+                    SetWallTile(center - 1, center + 1, maxY, maxY, null);
+                    break;
+                }
+            }
+        }
+        else if (direction == 1)
+        {
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].DownLeft.y == minY)
+                {
+                    int center = (rooms[i].DownLeft.x + rooms[i].UpRight.x) / 2;
+                    SetWallTile(center - 1, center + 1, minY, minY, null);
+                    break;
+                }
+            }
+        }
+        else if (direction == 2)
+        {
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].DownLeft.x == minX)
+                {
+                    int center = (rooms[i].DownLeft.y + rooms[i].UpRight.y) / 2;
+                    SetWallTile(minX, minX, center - 1, center + 1, null);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].UpRight.x == maxX)
+                {
+                    int center = (rooms[i].DownLeft.y + rooms[i].UpRight.y) / 2;
+                    SetWallTile(maxX, maxX, center - 1, center + 1, null);
+                    break;
+                }
             }
         }
     }
+    void GenerateMonster()
+    {
+        Vector3Int pos = new Vector3Int(0, 0);
+        for (int i = 0; i < Monster.Length; i++)
+        {
+            for (int j = 0; j < countPerMonster[i]; j++)
+            {
+                pos = GetPossibleSpawnPostion();
+                Instantiate(Monster[i], pos, Quaternion.identity, MonsterParent.transform);
+                hs.Add(pos);
+            }
+        }        
+    }
+    Vector3Int GetPossibleSpawnPostion()
+    {
+        // 벽이 없고 이미 하나의 물건, 몬스터가 스폰되지 않은 위치.
+        Vector3Int pos = new Vector3Int();
+        while (true)
+        {
+            pos.x = Random.Range(minX, maxX);
+            pos.y = Random.Range(minY, maxY);
 
+            if (WallMap.HasTile(pos + new Vector3Int(dx[0], dy[0])) ||
+                WallMap.HasTile(pos + new Vector3Int(dx[1], dy[1])) ||
+                WallMap.HasTile(pos + new Vector3Int(dx[2], dy[2])) ||
+                WallMap.HasTile(pos + new Vector3Int(dx[3], dy[3])))
+                continue;
+            if (WallMap.HasTile(pos) || hs.Contains(pos))
+                continue;
+            break;
+        }
+        hs.Add(pos);
+        return pos;
+    }
     void SetWallTile(int minX, int maxX, int minY, int maxY, Tile tile)
     {
         for(int i = minX; i <= maxX; i++)
@@ -213,7 +327,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
-
     void AddShadowCastToWallMap()
     {
         foreach (var pos in WallMap.cellBounds.allPositionsWithin)
