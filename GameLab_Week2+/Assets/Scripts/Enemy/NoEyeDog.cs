@@ -47,8 +47,8 @@ public class NoEyeDog : Enemy
     void Idle()
     {
         this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
     }
+
     void ChangeState()
     {        
         float distance = Vector3.Distance(transform.position, Player.transform.position);

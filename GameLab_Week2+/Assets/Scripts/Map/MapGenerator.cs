@@ -23,8 +23,7 @@ public class Room
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField]
-    private int sperateCount;    
+    [Header("∏ ")]
     [SerializeField]
     private Tilemap WallMap;
     [SerializeField]
@@ -33,6 +32,14 @@ public class MapGenerator : MonoBehaviour
     [Header("≈∏¿œ")]
     public Tile GroundTile;
     public Tile WallTile;
+
+    [SerializeField]
+    private int sperateCount;
+
+    [SerializeField]
+    private GameObject[] Treasures;
+    [SerializeField]
+    private int countPerTreasure;
 
     private const int maxX = 96;
     private const int minX = -96;    
@@ -181,6 +188,17 @@ public class MapGenerator : MonoBehaviour
                         break;
                 }                
                 SetWallTile(roomMinX + offset, roomMinX + offset + 1, roomMaxY, roomMaxY + 1, null);
+            }
+        }
+    }
+
+    void GenerateTreasure(int count)
+    {
+        for(int i = 0; i < Treasures.Length; i++)
+        {
+            for(int j = 0; j < count; j++)
+            {
+
             }
         }
     }

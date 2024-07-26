@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,9 +13,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private float DamageTimer = 0f;
+
+    private bool isDead;
+    public GameObject JumpScareCanvas;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        isDead = false;
     }
 
     void Update()
@@ -31,8 +37,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 물리 계산을 FixedUpdate에서 처리
-        MovePlayer();
+        if (!isDead)
+            MovePlayer();
     }
 
     void MovePlayer()
@@ -59,6 +65,10 @@ public class PlayerController : MonoBehaviour
     void Dead(GameObject obj)
     {
         // 죽인 오브젝트에 따라 나오는 점프 스퀘어 다름.
-
+        isDead = true;
+        if (obj.CompareTag("Leviathan"))
+        {
+            JumpScareCanvas.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 }
