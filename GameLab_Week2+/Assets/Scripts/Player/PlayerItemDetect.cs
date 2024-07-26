@@ -9,7 +9,7 @@ public class PlayerItemDetect : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Item"))
+        if (collision.CompareTag("Item") || collision.CompareTag("Core"))
         {
             playerItemController.SetDetectedItem(collision.gameObject);
         }
@@ -17,7 +17,7 @@ public class PlayerItemDetect : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Item"))
+        if (collision.CompareTag("Item") || collision.CompareTag("Core"))
         {
             playerItemController.SetDetectedItem(null);
         }

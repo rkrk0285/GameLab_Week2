@@ -6,4 +6,5 @@ public class Item : MonoBehaviour
 {
     public int price;
     public int weight;
+    public Sprite sprite;
 }

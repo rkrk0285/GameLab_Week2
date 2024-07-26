@@ -2,44 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class PlayerItemController : MonoBehaviour
 {
-    public GameObject InventoryCanvas;
+    public GameObject InventoryCanvas;    
+    public Sprite DefaultSprite;
 
-    public GameObject DetectedItem;
-    private GameObject[] Inventory;
+    public GameObject[] Inventory;
     private int InventoryIndex;
+    private GameObject DetectedItem;
 
     private const int InventoryMin = 0;
     private const int InventoryMax = 3;
 
-    private Color enableColor = new Color(0, 0, 0, 1);
-    private Color disableColor = new Color(0, 0, 0, 0.75f);
+    private Color enableColor = new Color(1, 1, 1, 1);
+    private Color disableColor = new Color(1, 1, 1, 0.75f);
     void Start()
     {
         Inventory = new GameObject[4];
         InventoryIndex = 0;
-        UpdateInventoryCursor();
+        UpdateInventory();
     }
     
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (DetectedItem != null)
-            {
-                GetDetectedItem();
-            }
+            GetDetectedItem();
         }
 
         if (Input.GetKeyDown(KeyCode.G))
-        {            
-            if(Inventory[InventoryIndex] != null)
-            {
-                // 아이템 드랍하는 함수.
-            }
+        {
+            DropSelectedItem();            
         }
 
         float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
@@ -55,27 +51,57 @@ public class PlayerItemController : MonoBehaviour
     }
 
     void GetDetectedItem()
-    {                
-        for(int i = InventoryMin; i <= InventoryMax; i++)
+    {
+        if (DetectedItem == null)
+            return;
+        else if (DetectedItem.CompareTag("Core"))
         {
-            if (Inventory[i] == null)
+
+        }
+        else
+        {
+            for (int i = InventoryMin; i <= InventoryMax; i++)
             {
-                Inventory[i] = DetectedItem;
-                DetectedItem.SetActive(false);
-                return;
+                if (Inventory[i] == null)
+                {
+                    Inventory[i] = DetectedItem;
+                    DetectedItem.SetActive(false);
+                    break;
+                }
             }
         }
-        Debug.Log("아이템이 가득 찼습니다.");
+        UpdateInventory();        
+    }
+    void DropSelectedItem()
+    {
+        if (Inventory[InventoryIndex] == null)
+            return;
+
+        Inventory[InventoryIndex].SetActive(true);
+        Inventory[InventoryIndex].transform.position = this.transform.position;
+        Inventory[InventoryIndex] = null;
+        UpdateInventory();
     }
 
     void ChangeInventoryIndex(int offset)
     {        
         InventoryIndex = Mathf.Clamp(InventoryIndex + offset, InventoryMin, InventoryMax);
-        UpdateInventoryCursor();
+        UpdateInventory();
     }
 
-    void UpdateInventoryCursor()
+    void UpdateInventory()
     {
+        for (int i = InventoryMin; i <= InventoryMax; i++)
+        {
+            if (Inventory[i] != null)
+            {
+                Sprite sprite = Inventory[i].GetComponent<Item>().sprite;
+                InventoryCanvas.transform.GetChild(i).GetComponent<Image>().sprite = sprite;
+            }
+            else
+                InventoryCanvas.transform.GetChild(i).GetComponent<Image>().sprite = DefaultSprite;
+        }
+
         for (int i = InventoryMin; i <= InventoryMax; i++)
         {
             if (InventoryIndex == i)
