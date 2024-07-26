@@ -460,8 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c953033fd7b96014a84aba56535fbc40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 100
-  weight: 0
+  weight: 40
   sprite: {fileID: 21300000, guid: 5adbf1c6b428f8348b48bec2bfda5415, type: 3}
 --- !u!1 &3918349764937822106
 GameObject:

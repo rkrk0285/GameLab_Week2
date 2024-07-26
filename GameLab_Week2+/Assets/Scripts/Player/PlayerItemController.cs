@@ -18,7 +18,7 @@ public class PlayerItemController : MonoBehaviour
     private const int InventoryMax = 3;
 
     private Color enableColor = new Color(1, 1, 1, 1);
-    private Color disableColor = new Color(1, 1, 1, 0.75f);
+    private Color disableColor = new Color(1, 1, 1, 0.6f);
     void Start()
     {
         Inventory = new GameObject[4];
@@ -53,13 +53,12 @@ public class PlayerItemController : MonoBehaviour
     void GetDetectedItem()
     {
         if (DetectedItem == null)
-            return;
-        else if (DetectedItem.CompareTag("Core"))
-        {
-
-        }
+            return;        
         else
         {
+            if (DetectedItem.CompareTag("Core"))            
+                transform.Find("CoreLight").gameObject.SetActive(true);            
+
             for (int i = InventoryMin; i <= InventoryMax; i++)
             {
                 if (Inventory[i] == null)
@@ -76,6 +75,9 @@ public class PlayerItemController : MonoBehaviour
     {
         if (Inventory[InventoryIndex] == null)
             return;
+
+        if (Inventory[InventoryIndex].CompareTag("Core"))
+            transform.Find("CoreLight").gameObject.SetActive(false);
 
         Inventory[InventoryIndex].SetActive(true);
         Inventory[InventoryIndex].transform.position = this.transform.position;

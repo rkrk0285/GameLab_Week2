@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         // 이동 입력 받기
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
-
+        //movement.Normalize();
         if (DamageTimer > 0)
         {
             DamageTimer -= Time.deltaTime;
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     void MovePlayer()
     {
         if (movement.x == 0 && movement.y == 0)
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector2.zero;        
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 

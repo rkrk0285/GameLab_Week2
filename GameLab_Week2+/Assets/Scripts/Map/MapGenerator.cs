@@ -32,6 +32,7 @@ public class MapGenerator : MonoBehaviour
     [Header("타일")]
     public Tile GroundTile;
     public Tile WallTile;
+    public Tile ExitTile;
 
     [SerializeField]
     private int sperateCount;
@@ -40,13 +41,15 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private GameObject[] Treasures;
     [SerializeField]
-    private GameObject Core;
+    private GameObject Core;    
     [SerializeField]
-    private int countPerTreasure;
+    private GameObject[] Monster;
     [SerializeField]
-    private GameObject[] Monster;    
+    private GameObject ExitPlatform;
     [SerializeField]
     private int[] countPerMonster;
+    [SerializeField]
+    private int countPerTreasure;    
 
     [Header("생성 위치")]
     [SerializeField]
@@ -114,7 +117,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
-
     void ApplyRoomToTilemap()
     {        
         WallMap.ClearAllTiles();
@@ -131,8 +133,7 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-    }
-    
+    }    
     void GenerateRoad()
     {
         int roomCount = rooms.Count;
@@ -211,7 +212,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
-
     void GenerateTreasure(int count)
     {
         Vector3Int pos = new Vector3Int(0, 0);
@@ -229,10 +229,11 @@ public class MapGenerator : MonoBehaviour
         Instantiate(Core, pos, Quaternion.identity, TreasureParent.transform);
         hs.Add(pos);
     }
-
     void GenerateExit()
     {
-        int direction = Random.Range(0, 4);
+        int direction = Random.Range(0, 4);        
+        int center = 0;
+        int exitMinX = 0, exitMaxX = 0, exitMinY = 0, exitMaxY = 0;
 
         if (direction == 0)
         {
@@ -240,8 +241,12 @@ public class MapGenerator : MonoBehaviour
             {
                 if (rooms[i].UpRight.y == maxY)
                 {
-                    int center = (rooms[i].DownLeft.x + rooms[i].UpRight.x) / 2;
-                    SetWallTile(center - 1, center + 1, maxY, maxY, null);
+                    center = (rooms[i].DownLeft.x + rooms[i].UpRight.x) / 2;
+                    exitMinX = center - 1;
+                    exitMaxX = center + 1;
+                    exitMinY = maxY;
+                    exitMaxY = maxY;
+                    Instantiate(ExitPlatform, new Vector3(center + 0.5f, maxY - 1.5f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -252,8 +257,12 @@ public class MapGenerator : MonoBehaviour
             {
                 if (rooms[i].DownLeft.y == minY)
                 {
-                    int center = (rooms[i].DownLeft.x + rooms[i].UpRight.x) / 2;
-                    SetWallTile(center - 1, center + 1, minY, minY, null);
+                    center = (rooms[i].DownLeft.x + rooms[i].UpRight.x) / 2;                    
+                    exitMinX = center - 1;
+                    exitMaxX = center + 1;
+                    exitMinY = minY;
+                    exitMaxY = minY;
+                    Instantiate(ExitPlatform, new Vector3(center + 0.5f, minY + 2.5f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -264,8 +273,12 @@ public class MapGenerator : MonoBehaviour
             {
                 if (rooms[i].DownLeft.x == minX)
                 {
-                    int center = (rooms[i].DownLeft.y + rooms[i].UpRight.y) / 2;
-                    SetWallTile(minX, minX, center - 1, center + 1, null);
+                    center = (rooms[i].DownLeft.y + rooms[i].UpRight.y) / 2;                    
+                    exitMinX = minX;
+                    exitMaxX = minX;
+                    exitMinY = center - 1;
+                    exitMaxY = center + 1;
+                    Instantiate(ExitPlatform, new Vector3(minX + 2.5f, center + 0.5f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -276,12 +289,17 @@ public class MapGenerator : MonoBehaviour
             {
                 if (rooms[i].UpRight.x == maxX)
                 {
-                    int center = (rooms[i].DownLeft.y + rooms[i].UpRight.y) / 2;
-                    SetWallTile(maxX, maxX, center - 1, center + 1, null);
+                    center = (rooms[i].DownLeft.y + rooms[i].UpRight.y) / 2;                    
+                    exitMinX = maxX;
+                    exitMaxX = maxX;
+                    exitMinY = center - 1;
+                    exitMaxY = center + 1;
+                    Instantiate(ExitPlatform, new Vector3(maxX - 1.5f, center + 0.5f), Quaternion.identity, null);
                     break;
                 }
             }
         }
+        SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, ExitTile);
     }
     void GenerateMonster()
     {
