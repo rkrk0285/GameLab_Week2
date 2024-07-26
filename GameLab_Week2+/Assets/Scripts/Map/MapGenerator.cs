@@ -125,15 +125,16 @@ public class MapGenerator : MonoBehaviour
             {                
                 while (true)
                 {
-                    offset = Random.Range(2, distY - 2);
+                    offset = Random.Range(2, distY - 3);
 
                     if (WallMap.GetTile(new Vector3Int(roomMinX - 2, roomMinY + offset)) == WallTile || 
-                        WallMap.GetTile(new Vector3Int(roomMinX - 2, roomMinY + offset + 1)) == WallTile)
+                        WallMap.GetTile(new Vector3Int(roomMinX - 2, roomMinY + offset + 1)) == WallTile ||
+                        WallMap.GetTile(new Vector3Int(roomMinX - 2, roomMinY + offset + 2)) == WallTile)
                         continue;
                     else
                         break;
                 }
-                SetWallTile(roomMinX - 1, roomMinX, roomMinY + offset, roomMinY + offset + 1, null);
+                SetWallTile(roomMinX - 1, roomMinX, roomMinY + offset, roomMinY + offset + 2, null);
             }
 
             if (roomMaxX != maxX)
@@ -155,15 +156,16 @@ public class MapGenerator : MonoBehaviour
             {
                 while (true)
                 {
-                    offset = Random.Range(2, distX - 2);
+                    offset = Random.Range(2, distX - 3);
 
                     if (WallMap.GetTile(new Vector3Int(roomMinX + offset, roomMinY - 2)) == WallTile ||
-                        WallMap.GetTile(new Vector3Int(roomMinX + offset + 1, roomMinY - 2)) == WallTile)
+                        WallMap.GetTile(new Vector3Int(roomMinX + offset + 1, roomMinY - 2)) == WallTile ||
+                        WallMap.GetTile(new Vector3Int(roomMinX + offset + 2, roomMinY - 2)) == WallTile)
                         continue;
                     else
                         break;
                 }                
-                SetWallTile(roomMinX + offset, roomMinX + offset + 1, roomMinY - 1, roomMinY, null);
+                SetWallTile(roomMinX + offset, roomMinX + offset + 2, roomMinY - 1, roomMinY, null);
             }
 
             if (roomMaxY != maxY)

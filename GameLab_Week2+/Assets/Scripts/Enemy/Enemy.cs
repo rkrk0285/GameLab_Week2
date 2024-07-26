@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -21,5 +22,17 @@ public class Enemy : MonoBehaviour
     protected GameObject Player;
     public Tilemap WallMap;
     public Tile WallTile;
+    protected bool CheckWallBetweenPlayer(float distance)
+    {
+        
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Player.transform.position - transform.position, distance, WallLayer);
 
+        if (hit.collider != null)
+        {
+            Debug.Log("감지 도미");
+            return true;
+        }
+        else
+            return false;
+    }
 }

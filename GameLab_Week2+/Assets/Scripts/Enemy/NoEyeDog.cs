@@ -28,7 +28,7 @@ public class NoEyeDog : Enemy
 
     private void FixedUpdate()
     {        
-        StateCheck();
+        ChangeState();
         Flip();
         if (state == State.Idle)
         {
@@ -47,11 +47,11 @@ public class NoEyeDog : Enemy
     void Idle()
     {
         this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-    }
-    void StateCheck()
-    {        
-        float distance = Vector3.Distance(transform.position, Player.transform.position);        
 
+    }
+    void ChangeState()
+    {        
+        float distance = Vector3.Distance(transform.position, Player.transform.position);
         if (distance < attackDistance)
         {
             state = State.Attack;
@@ -70,11 +70,28 @@ public class NoEyeDog : Enemy
     void Chase()
     {
         this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed);
+        float distance = Vector3.Distance(transform.position, Player.transform.position);
+
+        if (CheckWallBetweenPlayer(distance))
+        {
+            Vector3 target = transform.position * 2 - Player.transform.position;
+            transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed);
+        }
+        else
+            transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed);
     }
 
     void Attack()
-    {        
+    {
+        float distance = Vector3.Distance(transform.position, Player.transform.position);
+
+        if (CheckWallBetweenPlayer(distance))
+        {
+            Vector3 target = transform.position * 2 - Player.transform.position;
+            transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed);
+            return;
+        }
+
         if (!isRushing && rushTimer <= 0f)
         {
             isRushing = true;
@@ -112,15 +129,5 @@ public class NoEyeDog : Enemy
         float offset = transform.position.x - Player.transform.position.x;
         if ((offset < 0f && transform.localScale.x > 0f) || (offset > 0f && transform.localScale.x < 0f))
             transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-1, 1, 1));
-    }
-
-    bool WallCheck(float distance)
-    {                
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Player.transform.position - transform.position, distance, WallLayer);
-
-        if (hit.collider != null)
-            return false;
-        else
-            return true;
     }    
 }
