@@ -325,9 +325,10 @@ GameObject:
   - component: {fileID: 6197966570498929561}
   - component: {fileID: 3645956127748173649}
   - component: {fileID: 4580703584206801075}
+  - component: {fileID: -5442702755213174266}
   m_Layer: 0
   m_Name: Glass
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,6 +419,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
+--- !u!114 &-5442702755213174266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2989826078065660093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c953033fd7b96014a84aba56535fbc40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 100
+  weight: 0
 --- !u!1 &3025317109433888044
 GameObject:
   m_ObjectHideFlags: 0

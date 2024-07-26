@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Leviathan
   - NoEyeDog
+  - Item
   layers:
   - Default
   - TransparentFX

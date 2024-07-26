@@ -6,17 +6,20 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    public int HP = 100;
-    public float moveSpeed = 5f;
-
-    private float DamageDelay = 1f;    
-    private Rigidbody2D rb;
-    private Vector2 movement;
-    private float DamageTimer = 0f;
-
-    private bool isDead;
+    [Header("캔버스")]
     public GameObject JumpScareCanvas;
     public GameObject HitCanvas;
+
+    [Header("스탯")]
+    public int HP = 100;
+    public float moveSpeed = 5f;    
+
+    private float DamageDelay = 1f;
+    private float DamageTimer = 0f;
+    private Rigidbody2D rb;
+    private Vector2 movement;    
+
+    private bool isDead;    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,26 +53,23 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage, GameObject obj)
     {
-        if (HP > 0)
+        if (DamageTimer <= 0)
         {
-            if (DamageTimer <= 0)
-            {
-                DamageTimer = DamageDelay;
-                HP -= damage;
-                StartCoroutine(RedScreen());
-            }
+            DamageTimer = DamageDelay;
+            HP -= damage;
+            StartCoroutine(RedScreen());
         }
-        else
-        {
-            if (!isDead)            
-                Dead(obj);             
-        }
+
+        if (HP <= 0)        
+            if (!isDead)
+                Dead(obj);        
     }
 
     void Dead(GameObject obj)
     {
         // 죽인 오브젝트에 따라 나오는 점프 스퀘어 다름.
         isDead = true;
+        Debug.Log(obj.tag);
         if (obj.CompareTag("Leviathan"))
         {
             JumpScareCanvas.transform.GetChild(0).gameObject.SetActive(true);
