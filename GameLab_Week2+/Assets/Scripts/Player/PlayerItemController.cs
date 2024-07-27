@@ -73,9 +73,19 @@ public class PlayerItemController : MonoBehaviour
             return;
         if (Inventory[InventoryIndex].CompareTag("Core"))
             transform.Find("CoreLight").gameObject.SetActive(false);
+
         Inventory[InventoryIndex].SetActive(true);
         Inventory[InventoryIndex].transform.position = this.transform.position;
         Inventory[InventoryIndex] = null;
+
+        for (int i = InventoryMin; i <= InventoryMax; i++)
+        {
+            if (Inventory[i] != null)
+            {
+                InventoryIndex = i;
+                break;
+            }
+        }
 
         UpdateInventory();        
         GameManager.instance.ChangePlayerWeight(CalculateInventoryItem());

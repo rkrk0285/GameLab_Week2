@@ -37,6 +37,8 @@ public class MapGenerator : MonoBehaviour
     private int sperateCount;
 
     [Header("오브젝트")]
+    public GameObject Player;
+
     [SerializeField]
     private GameObject[] Treasures;
     [SerializeField]
@@ -73,6 +75,8 @@ public class MapGenerator : MonoBehaviour
     private int exitMinY = 0;
     private int exitMaxY = 0;
 
+    private Vector2 PlayerPosition;
+    
     List<Room> rooms = new List<Room>();
     HashSet<Vector3Int> hs = new HashSet<Vector3Int>();
 
@@ -83,9 +87,9 @@ public class MapGenerator : MonoBehaviour
         GenerateRoad();
         GenerateExit();
         AddShadowCastToWallMap();
-        GenerateTreasure(countPerTreasure);
-        GenerateMonster();
         SetPlayerPosition();
+        GenerateTreasure(countPerTreasure);
+        GenerateMonster();        
     }
     void SeperateRoom()
     {
@@ -327,7 +331,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = 0; j < countPerMonster[i]; j++)
             {
-                pos = GetPossibleSpawnPostion();
+                pos = GetPossibleSpawnPostionForMonster();
                 Instantiate(Monster[i], pos, Quaternion.identity, MonsterParent.transform);
                 hs.Add(pos);
             }
@@ -335,7 +339,9 @@ public class MapGenerator : MonoBehaviour
     }
     void SetPlayerPosition()
     {
-        GameObject.FindWithTag("Player").gameObject.transform.position = GetPossibleSpawnPostion();
+        Player.gameObject.transform.position = GetPossibleSpawnPostion();
+        PlayerPosition = new Vector2(Player.transform.position.x, Player.transform.position.y);
+
     }
     Vector3Int GetPossibleSpawnPostion()
     {
@@ -352,6 +358,29 @@ public class MapGenerator : MonoBehaviour
                 WallMap.HasTile(pos + new Vector3Int(dx[3], dy[3])))
                 continue;
             if (WallMap.HasTile(pos) || hs.Contains(pos))
+                continue;
+            break;
+        }
+        hs.Add(pos);
+        return pos;
+    }
+    Vector3Int GetPossibleSpawnPostionForMonster()
+    {
+        // 벽이 없고 이미 하나의 물건, 몬스터가 스폰되지 않은 위치.
+        Vector3Int pos = new Vector3Int();
+        while (true)
+        {
+            pos.x = Random.Range(minX, maxX);
+            pos.y = Random.Range(minY, maxY);
+
+            if (WallMap.HasTile(pos + new Vector3Int(dx[0], dy[0])) ||
+                WallMap.HasTile(pos + new Vector3Int(dx[1], dy[1])) ||
+                WallMap.HasTile(pos + new Vector3Int(dx[2], dy[2])) ||
+                WallMap.HasTile(pos + new Vector3Int(dx[3], dy[3])))
+                continue;
+            if (WallMap.HasTile(pos) || hs.Contains(pos))
+                continue;
+            if (Vector3.Distance(Player.transform.position, pos) < 5f)
                 continue;
             break;
         }
