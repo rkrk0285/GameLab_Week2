@@ -1103,3 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 50
   sprite: {fileID: 21300000, guid: dcf79930880657049b2004679a5fd7c1, type: 3}
+  description: 'It is a bright core.
+
+    It seems like you will gain light if you
+    acquire it.'

@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class PlayerItemController : MonoBehaviour
-{    
-    public GameObject[] Inventory;
-    public GameObject InventoryCanvas;            
+{        
+    public GameObject InventoryCanvas;                
+    public GameObject ItemCanvas;
     public Sprite DefaultSprite;
 
+    private GameObject[] Inventory;
     private int InventoryIndex;
     private GameObject DetectedItem;
 
@@ -18,14 +20,14 @@ public class PlayerItemController : MonoBehaviour
     private const int InventoryMax = 3;
 
     private Color enableColor = new Color(1, 1, 1, 1);
-    private Color disableColor = new Color(1, 1, 1, 0.6f);
+    private Color disableColor = new Color(1, 1, 1, 0.3f);
+
     void Start()
     {
         Inventory = new GameObject[4];
         InventoryIndex = 0;
         UpdateInventory();
-    }
-    
+    }    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))        
@@ -39,12 +41,20 @@ public class PlayerItemController : MonoBehaviour
         else if (mouseWheel < 0)
             ChangeInventoryIndex(-1);
     }
-
     public void SetDetectedItem(GameObject obj)
     {
         DetectedItem = obj;
-    }
+        if (obj != null)
+        {            
+            ItemCanvas.transform.GetChild(0).GetComponent<Image>().sprite = obj.GetComponent<Item>().sprite;
+            ItemCanvas.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = obj.GetComponent<Item>().description;
+            ItemCanvas.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Weight : " + obj.GetComponent<Item>().weight;
+            ItemCanvas.SetActive(true);
+        }
+        else        
+            ItemCanvas.SetActive(false);
 
+    }
     void GetDetectedItem()
     {
         if (DetectedItem == null)
@@ -90,13 +100,11 @@ public class PlayerItemController : MonoBehaviour
         UpdateInventory();        
         GameManager.instance.ChangePlayerWeight(CalculateInventoryItem());
     }
-
     public void ChangeInventoryIndex(int offset)
     {        
         InventoryIndex = Mathf.Clamp(InventoryIndex + offset, InventoryMin, InventoryMax);        
         UpdateInventory();
     }
-
     void UpdateInventory()
     {
         // 아이템 스프라이트
@@ -120,7 +128,6 @@ public class PlayerItemController : MonoBehaviour
                 InventoryCanvas.transform.GetChild(i).GetComponent<Image>().color = disableColor;
         }
     }
-
     public int CalculateInventoryItem()
     {
         int result = 0;

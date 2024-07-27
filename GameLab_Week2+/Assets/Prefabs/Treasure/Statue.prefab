@@ -575,6 +575,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 30
   sprite: {fileID: 21300000, guid: d71253c5366123a419d5dbe8a0f5beb7, type: 3}
+  description: 'This is a statue that I think I saw
+
+    last week.'
 --- !u!1 &3828711478318935810
 GameObject:
   m_ObjectHideFlags: 0

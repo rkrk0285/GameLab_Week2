@@ -6,4 +6,6 @@ public class Item : MonoBehaviour
 {    
     public int weight;
     public Sprite sprite;
+    [TextArea]
+    public string description;    
 }

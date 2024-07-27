@@ -23,15 +23,11 @@ public class Enemy : MonoBehaviour
     public Tilemap WallMap;
     public Tile WallTile;
     protected bool CheckWallBetweenPlayer(float distance)
-    {
-        
+    {        
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Player.transform.position - transform.position, distance, WallLayer);
 
-        if (hit.collider != null)
-        {
-            Debug.Log("감지 도미");
-            return true;
-        }
+        if (hit.collider != null)                    
+            return true;        
         else
             return false;
     }

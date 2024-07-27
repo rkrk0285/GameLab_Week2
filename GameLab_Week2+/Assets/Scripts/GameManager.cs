@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [Header("ÅØ½ºÆ®")]
     public TextMeshProUGUI GoalText;
     public TextMeshProUGUI WeightText;
+    //public TextMeshProUGUI PlayerSpeedText;
+    public TextMeshProUGUI PlayerWeightText;    
 
     [Header("UI")]
     public int Phase = 1;
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         SetGoalText();
+        SetPlayerWeight(0);
     }
     public void CheckExitPlatformWeight(int currentWeight)
     {
@@ -45,14 +48,9 @@ public class GameManager : MonoBehaviour
 
         if (currentWeight >= ExitWeight)
         {
-            mapGenerator.OpenExitWall(true);
+            mapGenerator.OpenExitWall();
             SetPhase(3);
-        }
-        else
-        {
-            mapGenerator.OpenExitWall(false);
-            SetPhase(2);
-        }
+        }        
     }
 
     public void SetPhase(int phase)
@@ -76,7 +74,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 2:
                 GoalText.text = "Place the Items on the Exit Platform";
-                WeightText.text = "Quota : " + exitPlatformWeight + " / 160";
+                WeightText.text = "Exit Weight : " + exitPlatformWeight + " / 160";
                 break;
             case 3:
                 GoalText.text = "Now Escape";
@@ -84,9 +82,24 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
+    public void SetPlayerWeight(int weight)
+    {        
+        if (weight == 0)
+            PlayerWeightText.text = "There is nothing now.";
+        else if (weight <= 40)
+            PlayerWeightText.text = "It's lightweight.";
+        else if (weight <= 80)
+            PlayerWeightText.text = "It's a reasonable weight.";
+        else if (weight <= 120)
+            PlayerWeightText.text = "It's a little heavy.";
+        else if (weight <= 160)
+            PlayerWeightText.text = "It's very heavy!";
+        else if (weight > 160)
+            PlayerWeightText.text = "I'm carrying an elephant!!";
+    }
     public void ChangePlayerWeight(int weight)
     {
-        playerController.CalculateMoveSpeed(weight);        
+        playerController.CalculateMoveSpeed(weight);
+        SetPlayerWeight(weight);
     }
 }

@@ -433,6 +433,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 20
   sprite: {fileID: 21300000, guid: 726079439cc2bda44bc5e2fa4e4c0dc0, type: 3}
+  description: 'It''s an old glass.
+
+    It looks like it has wine in it.'
 --- !u!1 &3025317109433888044
 GameObject:
   m_ObjectHideFlags: 0

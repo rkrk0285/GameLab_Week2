@@ -317,12 +317,9 @@ public class MapGenerator : MonoBehaviour
         }        
         SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, ExitTile);
     }
-    public void OpenExitWall(bool toggle)
+    public void OpenExitWall()
     {
-        if (toggle)        
-            SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, null);        
-        else
-            SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, ExitTile);
+        SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, null);
     }
     void GenerateMonster()
     {
