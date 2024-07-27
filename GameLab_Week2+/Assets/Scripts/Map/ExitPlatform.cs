@@ -18,11 +18,16 @@ public class ExitPlatform : MonoBehaviour
         // 충돌 중인 객체를 리스트에 추가
         if (other.CompareTag("Item") || other.CompareTag("Core"))
         {
-            if (!collidingTreasures.Contains(other.gameObject))
-            {
-                collidingTreasures.Add(other.gameObject);
-            }                        
+            if (!collidingTreasures.Contains(other.gameObject))            
+                collidingTreasures.Add(other.gameObject);            
             gameManager.CheckExitPlatformWeight(GetWeightOfCollidingObjects());
+        }
+        else if (other.CompareTag("Player"))
+        {
+            if (gameManager.GetPhase() == 1)
+            {
+                gameManager.SetPhase(2);
+            }
         }
     }
 
@@ -31,19 +36,11 @@ public class ExitPlatform : MonoBehaviour
     {
         if (other.CompareTag("Item") || other.CompareTag("Core"))
         {
-            if (collidingTreasures.Contains(other.gameObject))
-            {
-                collidingTreasures.Remove(other.gameObject);
-            }
+            if (collidingTreasures.Contains(other.gameObject))            
+                collidingTreasures.Remove(other.gameObject);            
             gameManager.CheckExitPlatformWeight(GetWeightOfCollidingObjects());
         }
-    }
-
-    // 충돌 중인 객체들을 배열로 반환하는 메서드
-    public GameObject[] GetCollidingObjects()
-    {
-        return collidingTreasures.ToArray();
-    }
+    }    
 
     public int GetWeightOfCollidingObjects()
     {

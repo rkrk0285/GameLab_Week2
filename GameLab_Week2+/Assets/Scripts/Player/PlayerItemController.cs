@@ -6,11 +6,11 @@ using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class PlayerItemController : MonoBehaviour
-{
-    public GameObject InventoryCanvas;    
+{    
+    public GameObject[] Inventory;
+    public GameObject InventoryCanvas;            
     public Sprite DefaultSprite;
 
-    public GameObject[] Inventory;
     private int InventoryIndex;
     private GameObject DetectedItem;
 
@@ -28,15 +28,10 @@ public class PlayerItemController : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            GetDetectedItem();
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DropSelectedItem();            
-        }
+        if (Input.GetKeyDown(KeyCode.E))        
+            GetDetectedItem();        
+        if (Input.GetKeyDown(KeyCode.G))        
+            DropSelectedItem();                    
 
         float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         if (mouseWheel > 0)
@@ -57,8 +52,7 @@ public class PlayerItemController : MonoBehaviour
         else
         {
             if (DetectedItem.CompareTag("Core"))            
-                transform.Find("CoreLight").gameObject.SetActive(true);            
-
+                transform.Find("CoreLight").gameObject.SetActive(true);
             for (int i = InventoryMin; i <= InventoryMax; i++)
             {
                 if (Inventory[i] == null)
@@ -69,30 +63,33 @@ public class PlayerItemController : MonoBehaviour
                 }
             }
         }
-        UpdateInventory();        
+
+        UpdateInventory();
+        GameManager.instance.ChangePlayerWeight(CalculateInventoryItem());
     }
     void DropSelectedItem()
     {
         if (Inventory[InventoryIndex] == null)
             return;
-
         if (Inventory[InventoryIndex].CompareTag("Core"))
             transform.Find("CoreLight").gameObject.SetActive(false);
-
         Inventory[InventoryIndex].SetActive(true);
         Inventory[InventoryIndex].transform.position = this.transform.position;
         Inventory[InventoryIndex] = null;
-        UpdateInventory();
+
+        UpdateInventory();        
+        GameManager.instance.ChangePlayerWeight(CalculateInventoryItem());
     }
 
-    void ChangeInventoryIndex(int offset)
+    public void ChangeInventoryIndex(int offset)
     {        
-        InventoryIndex = Mathf.Clamp(InventoryIndex + offset, InventoryMin, InventoryMax);
+        InventoryIndex = Mathf.Clamp(InventoryIndex + offset, InventoryMin, InventoryMax);        
         UpdateInventory();
     }
 
     void UpdateInventory()
     {
+        // 아이템 스프라이트
         for (int i = InventoryMin; i <= InventoryMax; i++)
         {
             if (Inventory[i] != null)
@@ -104,6 +101,7 @@ public class PlayerItemController : MonoBehaviour
                 InventoryCanvas.transform.GetChild(i).GetComponent<Image>().sprite = DefaultSprite;
         }
 
+        // 아이템 커서 하이라이트
         for (int i = InventoryMin; i <= InventoryMax; i++)
         {
             if (InventoryIndex == i)
@@ -111,6 +109,17 @@ public class PlayerItemController : MonoBehaviour
             else
                 InventoryCanvas.transform.GetChild(i).GetComponent<Image>().color = disableColor;
         }
+    }
+
+    public int CalculateInventoryItem()
+    {
+        int result = 0;
+        for (int i = InventoryMin; i <= InventoryMax; i++)
+        {
+            if (Inventory[i] != null)            
+                result += Inventory[i].GetComponent<Item>().weight;                        
+        }        
+        return result;
     }
 }
 

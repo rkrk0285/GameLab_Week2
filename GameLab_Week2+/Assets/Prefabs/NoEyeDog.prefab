@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6666667, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1380
+  m_InstanceId: 36846
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 0.5, z: 0}
@@ -188,7 +188,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6666667, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.49999905, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1388
+  m_InstanceId: 36850
   m_LocalBounds:
     m_Center: {x: -0.0000019073486, y: 0.00000047683716, z: 0}
     m_Extent: {x: 0.5000019, y: 0.49999952, z: 0}
@@ -303,7 +303,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6666667, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
   - {x: 0.5249629, y: -0.7239342, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1342
+  m_InstanceId: 36882
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5249629, y: 0.7239342, z: 0}
@@ -569,7 +569,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.28866577, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1358
+  m_InstanceId: 36854
   m_LocalBounds:
     m_Center: {x: 0, y: 0.21133327, z: 0}
     m_Extent: {x: 0.5, y: 0.49999905, z: 0}
@@ -683,7 +683,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -768,7 +768,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -806,7 +806,7 @@ MonoBehaviour:
   - {x: 0.4999981, y: -0.28866386, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1366
+  m_InstanceId: 36904
   m_LocalBounds:
     m_Center: {x: -0.0000009536743, y: 0.21133518, z: 0}
     m_Extent: {x: 0.49999905, y: 0.49999905, z: 0}
@@ -883,7 +883,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6666667, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -921,7 +921,7 @@ MonoBehaviour:
   - {x: 0.5000038, y: -0.49999905, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1396
+  m_InstanceId: 36874
   m_LocalBounds:
     m_Center: {x: 0, y: 0.00000047683716, z: 0}
     m_Extent: {x: 0.5000038, y: 0.49999952, z: 0}
@@ -1092,7 +1092,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6666667, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   - {x: 0.5000005, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1350
+  m_InstanceId: 36906
   m_LocalBounds:
     m_Center: {x: 0.00000023841858, y: 0, z: 0}
     m_Extent: {x: 0.50000024, y: 0.5, z: 0}

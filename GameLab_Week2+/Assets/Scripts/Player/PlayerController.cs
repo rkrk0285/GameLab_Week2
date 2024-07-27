@@ -9,13 +9,15 @@ public class PlayerController : MonoBehaviour
     [Header("캔버스")]
     public GameObject JumpScareCanvas;
     public GameObject HitCanvas;
-
-    [Header("스탯")]
-    public int HP = 100;
-    public float moveSpeed = 5f;    
+    
+    [Header("파라미터")]
+    private int HP = 100;
+    public float moveSpeed = 10f;
 
     private float DamageDelay = 1f;
     private float DamageTimer = 0f;
+    private float moveDefault = 10f;
+    private float moveDeclineOffset = 30f;
     private Rigidbody2D rb;
     private Vector2 movement;    
 
@@ -25,34 +27,33 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         isDead = false;
     }
-
     void Update()
     {
         // 이동 입력 받기
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
-        //movement.Normalize();
+        
         if (DamageTimer > 0)
         {
             DamageTimer -= Time.deltaTime;
         }
     }
-
     void FixedUpdate()
     {
         if (!isDead)
             MovePlayer();
     }
-
     void MovePlayer()
     {
         if (movement.x == 0 && movement.y == 0)
             rb.velocity = Vector2.zero;        
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
-
     public void TakeDamage(int damage, GameObject obj)
     {
+        if (isDead)
+            return;
+        
         if (DamageTimer <= 0)
         {
             DamageTimer = DamageDelay;
@@ -60,11 +61,9 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(RedScreen());
         }
 
-        if (HP <= 0)        
-            if (!isDead)
-                Dead(obj);        
+        if (HP <= 0)                    
+            Dead(obj);        
     }
-
     void Dead(GameObject obj)
     {
         // 죽인 오브젝트에 따라 나오는 점프 스퀘어 다름.
@@ -79,7 +78,10 @@ public class PlayerController : MonoBehaviour
             JumpScareCanvas.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
-
+    public void CalculateMoveSpeed(int weight)
+    {
+        moveSpeed = moveDefault - (weight / moveDeclineOffset);
+    }
     IEnumerator RedScreen()
     {        
         float timer = 0;

@@ -33,7 +33,6 @@ public class MapGenerator : MonoBehaviour
     public Tile GroundTile;
     public Tile WallTile;
     public Tile ExitTile;
-
     [SerializeField]
     private int sperateCount;
 
@@ -47,6 +46,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private GameObject ExitPlatform;
     [SerializeField]
+    private GameObject EscapeCollider;
+    [SerializeField]
     private int[] countPerMonster;
     [SerializeField]
     private int countPerTreasure;    
@@ -57,6 +58,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private GameObject MonsterParent;
 
+    // 내부 파라미터
+    
     private const int maxX = 96;
     private const int minX = -96;    
     private const int maxY = 60;
@@ -64,6 +67,11 @@ public class MapGenerator : MonoBehaviour
 
     private int[] dx = new int[4] { 0, 0, -1, 1 };
     private int[] dy = new int[4] { 1, -1, 0, 0 };
+
+    private int exitMinX = 0;
+    private int exitMaxX = 0;
+    private int exitMinY = 0;
+    private int exitMaxY = 0;
 
     List<Room> rooms = new List<Room>();
     HashSet<Vector3Int> hs = new HashSet<Vector3Int>();
@@ -77,6 +85,7 @@ public class MapGenerator : MonoBehaviour
         AddShadowCastToWallMap();
         GenerateTreasure(countPerTreasure);
         GenerateMonster();
+        SetPlayerPosition();
     }
     void SeperateRoom()
     {
@@ -232,8 +241,7 @@ public class MapGenerator : MonoBehaviour
     void GenerateExit()
     {
         int direction = Random.Range(0, 4);        
-        int center = 0;
-        int exitMinX = 0, exitMaxX = 0, exitMinY = 0, exitMaxY = 0;
+        int center = 0;               
 
         if (direction == 0)
         {
@@ -247,6 +255,7 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = maxY;
                     exitMaxY = maxY;
                     Instantiate(ExitPlatform, new Vector3(center + 0.5f, maxY - 1.5f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(center + 0.5f, maxY + 2f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -263,6 +272,7 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = minY;
                     exitMaxY = minY;
                     Instantiate(ExitPlatform, new Vector3(center + 0.5f, minY + 2.5f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(center + 0.5f, minY - 1f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -279,6 +289,7 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = center - 1;
                     exitMaxY = center + 1;
                     Instantiate(ExitPlatform, new Vector3(minX + 2.5f, center + 0.5f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(minX - 1f, center + 0.5f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -295,11 +306,19 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = center - 1;
                     exitMaxY = center + 1;
                     Instantiate(ExitPlatform, new Vector3(maxX - 1.5f, center + 0.5f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(maxX + 2f, center + 0.5f), Quaternion.identity, null);
                     break;
                 }
             }
-        }
+        }        
         SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, ExitTile);
+    }
+    public void OpenExitWall(bool toggle)
+    {
+        if (toggle)        
+            SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, null);        
+        else
+            SetWallTile(exitMinX, exitMaxX, exitMinY, exitMaxY, ExitTile);
     }
     void GenerateMonster()
     {
@@ -313,6 +332,10 @@ public class MapGenerator : MonoBehaviour
                 hs.Add(pos);
             }
         }        
+    }
+    void SetPlayerPosition()
+    {
+        GameObject.FindWithTag("Player").gameObject.transform.position = GetPossibleSpawnPostion();
     }
     Vector3Int GetPossibleSpawnPostion()
     {
@@ -354,7 +377,7 @@ public class MapGenerator : MonoBehaviour
                 Vector3Int tilePosition = new Vector3Int(pos.x, pos.y, pos.z);
                 Vector3 worldPosition = WallMap.CellToWorld(tilePosition);
 
-                GameObject shadowCaster = Instantiate(shadowCasterPrefab, worldPosition, Quaternion.identity, transform);
+                GameObject shadowCaster = Instantiate(shadowCasterPrefab, worldPosition + new Vector3(0.5f, 0.5f), Quaternion.identity, transform);
                 shadowCaster.GetComponent<ShadowCaster2D>().useRendererSilhouette = true;
             }
         }
