@@ -24,10 +24,8 @@ public class ExitPlatform : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            if (gameManager.GetPhase() == 1)
-            {
-                gameManager.SetPhase(2);
-            }
+            if (gameManager.GetPhase() == 1)            
+                gameManager.SetPhase(2);            
         }
     }
 

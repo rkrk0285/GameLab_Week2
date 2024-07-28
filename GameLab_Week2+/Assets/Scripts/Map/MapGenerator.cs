@@ -259,7 +259,7 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = maxY;
                     exitMaxY = maxY;
                     Instantiate(ExitPlatform, new Vector3(center + 0.5f, maxY - 1.5f), Quaternion.identity, null);
-                    Instantiate(EscapeCollider, new Vector3(center + 0.5f, maxY + 2f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(center + 0.5f, maxY + 3f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -276,7 +276,7 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = minY;
                     exitMaxY = minY;
                     Instantiate(ExitPlatform, new Vector3(center + 0.5f, minY + 2.5f), Quaternion.identity, null);
-                    Instantiate(EscapeCollider, new Vector3(center + 0.5f, minY - 1f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(center + 0.5f, minY - 2f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -293,7 +293,7 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = center - 1;
                     exitMaxY = center + 1;
                     Instantiate(ExitPlatform, new Vector3(minX + 2.5f, center + 0.5f), Quaternion.identity, null);
-                    Instantiate(EscapeCollider, new Vector3(minX - 1f, center + 0.5f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(minX - 2f, center + 0.5f), Quaternion.identity, null);
                     break;
                 }
             }
@@ -310,7 +310,7 @@ public class MapGenerator : MonoBehaviour
                     exitMinY = center - 1;
                     exitMaxY = center + 1;
                     Instantiate(ExitPlatform, new Vector3(maxX - 1.5f, center + 0.5f), Quaternion.identity, null);
-                    Instantiate(EscapeCollider, new Vector3(maxX + 2f, center + 0.5f), Quaternion.identity, null);
+                    Instantiate(EscapeCollider, new Vector3(maxX + 3f, center + 0.5f), Quaternion.identity, null);
                     break;
                 }
             }
