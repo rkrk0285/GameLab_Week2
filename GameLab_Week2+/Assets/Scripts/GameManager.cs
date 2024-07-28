@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
@@ -101,5 +102,9 @@ public class GameManager : MonoBehaviour
     {
         playerController.CalculateMoveSpeed(weight);
         SetPlayerWeight(weight);
+    }
+    public void OnClickMain()
+    {
+        SceneManager.LoadSceneAsync("GameStart");
     }
 }
