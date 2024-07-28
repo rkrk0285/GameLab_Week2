@@ -111,7 +111,7 @@ MonoBehaviour:
   - {x: 3.7323284, y: -0.20993948, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33388
+  m_InstanceId: 51282
   m_LocalBounds:
     m_Center: {x: 0, y: 0.00000011920929, z: 0}
     m_Extent: {x: 3.7323284, y: 0.2099396, z: 0}
@@ -226,7 +226,7 @@ MonoBehaviour:
   - {x: 3.7323284, y: -0.20993961, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33428
+  m_InstanceId: 51322
   m_LocalBounds:
     m_Center: {x: 0, y: -0.000000014901161, z: 0}
     m_Extent: {x: 3.7323284, y: 0.2099396, z: 0}
@@ -423,7 +423,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5000001, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33382
+  m_InstanceId: 51276
   m_LocalBounds:
     m_Center: {x: 0, y: -0.000000059604645, z: 0}
     m_Extent: {x: 0.5, y: 0.50000006, z: 0}
@@ -538,7 +538,7 @@ MonoBehaviour:
   - {x: 3.7323265, y: -0.20993948, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33386
+  m_InstanceId: 51280
   m_LocalBounds:
     m_Center: {x: -0.0000009536743, y: 0.00000011920929, z: 0}
     m_Extent: {x: 3.7323275, y: 0.2099396, z: 0}
@@ -653,7 +653,7 @@ MonoBehaviour:
   - {x: 0.49999905, y: -0.5000001, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33412
+  m_InstanceId: 51306
   m_LocalBounds:
     m_Center: {x: -0.00000047683716, y: -0.000000059604645, z: 0}
     m_Extent: {x: 0.49999952, y: 0.50000006, z: 0}
@@ -768,7 +768,7 @@ MonoBehaviour:
   - {x: 3.7323265, y: -0.20993961, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33424
+  m_InstanceId: 51318
   m_LocalBounds:
     m_Center: {x: -0.0000009536743, y: -0.000000014901161, z: 0}
     m_Extent: {x: 3.7323275, y: 0.2099396, z: 0}
@@ -883,7 +883,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33358
+  m_InstanceId: 51252
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 0.5, z: 0}
@@ -998,7 +998,7 @@ MonoBehaviour:
   - {x: 0.5, y: -1, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33380
+  m_InstanceId: 51274
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 1, z: 0}
@@ -1105,5 +1105,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: dcf79930880657049b2004679a5fd7c1, type: 3}
   description: 'It is a bright core.
 
-    It seems like you will gain light if you
-    acquire it.'
+    If you get this, you will get wider light.'

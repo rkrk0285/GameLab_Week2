@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class PlayerItemController : MonoBehaviour
 {        
     public GameObject InventoryCanvas;                
     public GameObject ItemCanvas;
-    public Sprite DefaultSprite;
+    public GameObject ItemSlots;
 
     private GameObject[] Inventory;
     private int InventoryIndex;
@@ -44,16 +42,6 @@ public class PlayerItemController : MonoBehaviour
     public void SetDetectedItem(GameObject obj)
     {
         DetectedItem = obj;
-        if (obj != null)
-        {            
-            ItemCanvas.transform.GetChild(0).GetComponent<Image>().sprite = obj.GetComponent<Item>().sprite;
-            ItemCanvas.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = obj.GetComponent<Item>().description;
-            ItemCanvas.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Weight : " + obj.GetComponent<Item>().weight;
-            ItemCanvas.SetActive(true);
-        }
-        else        
-            ItemCanvas.SetActive(false);
-
     }
     void GetDetectedItem()
     {
@@ -88,6 +76,7 @@ public class PlayerItemController : MonoBehaviour
         Inventory[InventoryIndex].transform.position = this.transform.position;
         Inventory[InventoryIndex] = null;
 
+        // 키 인덱스 재배치.
         for (int i = InventoryMin; i <= InventoryMax; i++)
         {
             if (Inventory[i] != null)
@@ -112,20 +101,20 @@ public class PlayerItemController : MonoBehaviour
         {
             if (Inventory[i] != null)
             {
-                Sprite sprite = Inventory[i].GetComponent<Item>().sprite;
-                InventoryCanvas.transform.GetChild(i).GetComponent<Image>().sprite = sprite;
+                Item item = Inventory[i].GetComponent<Item>();
+                ItemSlots.transform.GetChild(i).GetComponent<ItemSlot>().SetSlot(item);
             }
             else
-                InventoryCanvas.transform.GetChild(i).GetComponent<Image>().sprite = DefaultSprite;
+                ItemSlots.transform.GetChild(i).GetComponent<ItemSlot>().SetSlot(null);
         }
 
         // 아이템 커서 하이라이트
         for (int i = InventoryMin; i <= InventoryMax; i++)
         {
             if (InventoryIndex == i)
-                InventoryCanvas.transform.GetChild(i).GetComponent<Image>().color = enableColor;
+                ItemSlots.transform.GetChild(i).GetComponent<Image>().color = enableColor;
             else
-                InventoryCanvas.transform.GetChild(i).GetComponent<Image>().color = disableColor;
+                ItemSlots.transform.GetChild(i).GetComponent<Image>().color = disableColor;
         }
     }
     public int CalculateInventoryItem()
@@ -139,5 +128,3 @@ public class PlayerItemController : MonoBehaviour
         return result;
     }
 }
-
-// 0.2 0.3 0.5

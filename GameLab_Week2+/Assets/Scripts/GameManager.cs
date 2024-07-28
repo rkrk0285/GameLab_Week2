@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         exitPlatformWeight = currentWeight;
         if (Phase == 2)        
-            WeightText.text = "Weight : " + currentWeight + " / 160";
+            WeightText.text = "Exit Weight : " + currentWeight + " / 160";
 
         if (currentWeight >= ExitWeight)
         {
@@ -86,15 +86,15 @@ public class GameManager : MonoBehaviour
     {        
         if (weight == 0)
             PlayerWeightText.text = "There is nothing now.";
-        else if (weight <= 40)
+        else if (weight <= 30)
             PlayerWeightText.text = "It's lightweight.";
-        else if (weight <= 80)
+        else if (weight <= 60)
             PlayerWeightText.text = "It's a reasonable weight.";
-        else if (weight <= 120)
+        else if (weight <= 100)
             PlayerWeightText.text = "It's a little heavy.";
-        else if (weight <= 160)
+        else if (weight <= 150)
             PlayerWeightText.text = "It's very heavy!";
-        else if (weight > 160)
+        else if (weight > 150)
             PlayerWeightText.text = "I'm carrying an elephant!!";
     }
     public void ChangePlayerWeight(int weight)

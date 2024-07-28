@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
@@ -50,9 +49,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private GameObject EscapeCollider;
     [SerializeField]
-    private int[] countPerMonster;
+    private int countPerTreasure;
     [SerializeField]
-    private int countPerTreasure;    
+    private int[] countPerMonster;
+    
 
     [Header("생성 위치")]
     [SerializeField]
@@ -377,7 +377,7 @@ public class MapGenerator : MonoBehaviour
                 continue;
             if (WallMap.HasTile(pos) || hs.Contains(pos))
                 continue;
-            if (Vector3.Distance(Player.transform.position, pos) < 5f)
+            if (Vector3.Distance(Player.transform.position, pos) < 20f)
                 continue;
             break;
         }
