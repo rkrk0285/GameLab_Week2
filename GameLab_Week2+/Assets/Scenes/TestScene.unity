@@ -118524,8 +118524,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69.48, y: 32.8}
-  m_SizeDelta: {x: 340.32, y: 50}
+  m_AnchoredPosition: {x: 70, y: 35}
+  m_SizeDelta: {x: 346, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &673187288
 MonoBehaviour:
@@ -118547,10 +118547,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is an ancient pirate's chest.
+  m_text: 'It is a bright core.
+
+    If you get this, your surroundings will be brighter.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d43af55b57213b849b687f45d61f467d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 3988180057155028849, guid: d43af55b57213b849b687f45d61f467d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -118613,7 +118615,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &673187289
@@ -119878,7 +119880,7 @@ MonoBehaviour:
   m_text: 'Weight : 50'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d43af55b57213b849b687f45d61f467d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 3988180057155028849, guid: d43af55b57213b849b687f45d61f467d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -120125,7 +120127,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -268504969
   m_SortingOrder: 0
@@ -121796,6 +121798,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 210259394312671007, guid: ce531d3dbc4cced4f8e6cb59d6fab6cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1105722329032726437, guid: ce531d3dbc4cced4f8e6cb59d6fab6cf, type: 3}
       propertyPath: HitCanvas
       value: 
@@ -121859,6 +121865,10 @@ PrefabInstance:
     - target: {fileID: 6195868094499333237, guid: ce531d3dbc4cced4f8e6cb59d6fab6cf, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216567434767372512, guid: ce531d3dbc4cced4f8e6cb59d6fab6cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

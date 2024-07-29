@@ -30,7 +30,7 @@ public class PlayerItemController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))        
             GetDetectedItem();        
-        if (Input.GetKeyDown(KeyCode.G))        
+        if (Input.GetKeyDown(KeyCode.F))        
             DropSelectedItem();                    
 
         float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
@@ -77,14 +77,19 @@ public class PlayerItemController : MonoBehaviour
         Inventory[InventoryIndex] = null;
 
         // 키 인덱스 재배치.
+        bool existItem = false;
         for (int i = InventoryMin; i <= InventoryMax; i++)
         {
             if (Inventory[i] != null)
             {
+                existItem = true;
                 InventoryIndex = i;
                 break;
             }
         }
+
+        if (!existItem)
+            InventoryIndex = 0;        
 
         UpdateInventory();        
         GameManager.instance.ChangePlayerWeight(CalculateInventoryItem());

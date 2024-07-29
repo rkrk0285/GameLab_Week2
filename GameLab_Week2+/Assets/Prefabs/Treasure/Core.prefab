@@ -1105,4 +1105,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: dcf79930880657049b2004679a5fd7c1, type: 3}
   description: 'It is a bright core.
 
-    If you get this, you will get wider light.'
+    If you get this, your surroundings will
+    be brighter.'

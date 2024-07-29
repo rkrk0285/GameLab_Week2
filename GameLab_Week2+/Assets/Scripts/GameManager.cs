@@ -12,8 +12,7 @@ public class GameManager : MonoBehaviour
     
     [Header("≈ÿΩ∫∆Æ")]
     public TextMeshProUGUI GoalText;
-    public TextMeshProUGUI WeightText;
-    //public TextMeshProUGUI PlayerSpeedText;
+    public TextMeshProUGUI WeightText;    
     public TextMeshProUGUI PlayerWeightText;    
 
     [Header("UI")]
@@ -74,7 +73,7 @@ public class GameManager : MonoBehaviour
                 WeightText.text = "";
                 break;
             case 2:
-                GoalText.text = "Place the Items on the Exit Platform";
+                GoalText.text = "Place Items on the Exit Platform";
                 WeightText.text = "Exit Weight : " + exitPlatformWeight + " / 160";
                 break;
             case 3:
