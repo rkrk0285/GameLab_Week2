@@ -43,12 +43,10 @@ public class NoEyeDog : Enemy
             Attack();
         }
     }
-
     void Idle()
     {
         this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
-
     void ChangeState()
     {        
         float distance = Vector3.Distance(transform.position, Player.transform.position);
@@ -65,8 +63,6 @@ public class NoEyeDog : Enemy
             state = State.Idle;
         }
     }
-    
-
     void Chase()
     {
         this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -80,7 +76,6 @@ public class NoEyeDog : Enemy
         else
             transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed);
     }
-
     void Attack()
     {
         float distance = Vector3.Distance(transform.position, Player.transform.position);
@@ -104,7 +99,6 @@ public class NoEyeDog : Enemy
             Chase();
         }
     }
-
     IEnumerator Rush()
     {
         yield return null;
@@ -123,7 +117,6 @@ public class NoEyeDog : Enemy
         isRushing = false;
         StopCoroutine("Rush");
     }
-
     void Flip()
     {
         float offset = transform.position.x - Player.transform.position.x;

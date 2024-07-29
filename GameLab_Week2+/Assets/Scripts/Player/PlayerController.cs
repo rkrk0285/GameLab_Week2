@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
         
         if (DamageTimer <= 0)
         {
+            SoundManager.instance.PlaySfx("Bleed");
             DamageTimer = DamageDelay;
             HP -= damage;
             StartCoroutine(RedScreen());
@@ -69,10 +70,16 @@ public class PlayerController : MonoBehaviour
         // 죽인 오브젝트에 따라 나오는 점프 스퀘어 다름.
         isDead = true;
         JumpScareCanvas.transform.GetChild(0).gameObject.SetActive(true);
-        if (obj.CompareTag("Leviathan"))        
-            JumpScareCanvas.transform.GetChild(1).gameObject.SetActive(true);        
-        else if (obj.CompareTag("NoEyeDog"))        
+        if (obj.CompareTag("Leviathan"))
+        {
+            SoundManager.instance.PlaySfx("Leviathan");
+            JumpScareCanvas.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else if (obj.CompareTag("NoEyeDog"))
+        {
+            SoundManager.instance.PlaySfx("NoEyeDog");
             JumpScareCanvas.transform.GetChild(2).gameObject.SetActive(true);
+        }
     }
     public void CalculateMoveSpeed(int weight)
     {

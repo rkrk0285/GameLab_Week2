@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoEyeDogMouse : MonoBehaviour
 {   
-    private const int Damage = 30;
+    private const int Damage = 35;
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
